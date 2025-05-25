@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="header__content">
+          <h1 class="header__title">
+            <i class="fas fa-graduation-cap"></i>
+            Academic Calendar
+            <span class="header__status" id="statusIndicator"></span>
+          </h1>
+          <button
+            class="theme-toggle"
+            id="themeToggle"
+            aria-label="Toggle theme"
+          >
+            <i class="fas fa-moon"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="main-grid">
+        <!-- Content sections will be dynamically inserted here -->
+        <!-- Date Section HTML Structure -->
+        <section class="date-section">
+          <div class="date-display">
+            <div>
+              <h2 class="date-primary" id="currentDate">January 20, 2025</h2>
+              <p class="date-secondary" id="currentDay">Monday</p>
+            </div>
+            <div class="working-day" id="workingDayBadge">
+              <i class="fas fa-calendar-day"></i>
+              <span>Working Day 1</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Schedule Grid HTML Structure -->
+        <div class="schedule-grid" id="scheduleGrid">
+          <!-- Example of a schedule card -->
+          <div class="schedule-card">
+            <div class="schedule-time">
+              <i class="far fa-clock"></i>
+              <span>9:00 AM - 10:00 AM</span>
+            </div>
+            <h3 class="schedule-subject">Subject</h3>
+            <p class="schedule-details">Electrical Engineering</p>
+            <div class="schedule-instructor">
+              <div class="instructor-avatar">
+                <i class="fas fa-user"></i>
+              </div>
+              <span>Prof. </span>
+            </div>
+          </div>
+
+          <!-- Example of No Classes Display -->
+          <div class="no-classes" style="display: none">
+            <i class="fas fa-coffee"></i>
+            <h3>No Classes Today</h3>
+            <p>Enjoy your holiday!</p>
+          </div>
+        </div>
+      </div>
+      <!-- Facts -->
+      <!-- Image slider -->
+      <!-- Daily Fact Section HTML -->
+      <section class="fact-section">
+        <div class="fact-container">
+          <div class="fact-header">
+            <div class="fact-icon">
+              <i class="fas fa-lightbulb"></i>
+            </div>
+            <h2 class="fact-title">Daily Electrical Fact</h2>
+          </div>
+          <div class="fact-content">
+            <i class="fas fa-quote-right fact-quote"></i>
+            <p class="fact-text" id="dailyFact">
+              The first electric motor was invented by Michael Faraday in 1821.
+              This groundbreaking invention laid the foundation for modern
+              electrical engineering.
+            </p>
+          </div>
+          <div class="fact-footer">
+            <span class="fact-category">
+              <i class="fas fa-tag"></i>
+              Electrical Engineering
+            </span>
+            <button
+              class="fact-refresh"
+              id="refreshFact"
+              aria-label="Refresh fact"
+            >
+              <i class="fas fa-sync-alt"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+      <!-- Disclaimer Section HTML -->
+      <section class="disclaimer-section">
+        <div class="disclaimer-container">
+          <div class="disclaimer-header">
+            <div class="disclaimer-icon">
+              <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h2 class="disclaimer-title">Important Notice</h2>
+          </div>
+          <div class="disclaimer-content">
+            <ul class="disclaimer-points">
+              <li>
+                <i class="fas fa-info-circle"></i>
+                <span
+                  >This is not an official organization website. The schedule is
+                  based on working day calendar and may contain errors.</span
+                >
+              </li>
+              <li>
+                <i class="fas fa-calendar-check"></i>
+                <span
+                  >For local holidays and schedule updates, please refer to the
+                  official WhatsApp group.</span
+                >
+              </li>
+              <li>
+                <i class="fas fa-user-graduate"></i>
+                <span
+                  >Regular class attendance is recommended for accurate schedule
+                  information.</span
+                >
+              </li>
+              <li>
+                <i class="fas fa-calendar-alt"></i>
+                <span
+                  >Class schedules are displayed only for the 4th Semester
+                  Electrical Engineering Dept. 2025.</span
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="disclaimer-footer">
+            <i class="fas fa-clock"></i>
+            <span
+              >Last updated:
+              <time id="lastUpdated">January 21, 2025</time></span
+            >
+          </div>
+        </div>
+      </section>
+      <!-- Gallery HTML Structure -->
+      <section class="gallery-section">
+        <div class="gallery-container">
+          <div class="gallery-header">
+            <h2 class="gallery-title">Academic Moments</h2>
+            <p class="gallery-subtitle">Capturing excellence in education</p>
+          </div>
+
+          <div class="gallery-slider" id="gallerySlider">
+            <div class="gallery-track" id="galleryTrack">
+              <!-- Slides will be inserted here by JavaScript -->
+            </div>
+
+            <div class="gallery-nav">
+              <button class="gallery-button prev" aria-label="Previous slide">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <button class="gallery-button next" aria-label="Next slide">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+
+            <div class="gallery-dots" id="galleryDots">
+              <!-- Dots will be inserted here by JavaScript -->
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Footer HTML Structure -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <div class="footer-logo">
+              <i class="fas fa-graduation-cap"></i>
+              Academic Calendar
+            </div>
+            <p class="footer-description">
+              Elegantly designed academic schedule management system for modern
+              educational needs.
+            </p>
+            <div class="footer-social">
+              <a href="#" class="social-link" aria-label="GitHub">
+                <i class="fab fa-github"></i>
+              </a>
+              <a href="#" class="social-link" aria-label="CodePen">
+                <i class="fab fa-codepen"></i>
+              </a>
+              <a href="#" class="social-link" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="footer-links">
+            <h3 class="footer-title">Quick Links</h3>
+            <ul class="footer-nav">
+              <li>
+                <a href="#"
+                  ><i class="fas fa-calendar-alt"></i> Full Schedule</a
+                >
+              </li>
+              <li>
+                <a href="#"><i class="fas fa-book"></i> Courses</a>
+              </li>
+              <li>
+                <a href="#"><i class="fas fa-user-tie"></i> Faculty</a>
+              </li>
+              <li>
+                <a href="#"><i class="fas fa-bell"></i> Notifications</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-version">
+            <h3 class="footer-title">Version Info</h3>
+            <div class="version-info">
+              <div class="version-number">
+                <i class="fas fa-code-branch"></i>
+                Version 2.0.1
+              </div>
+              <div class="developer-info">
+                <div class="developer-avatar">
+                  <i class="fas fa-heart"></i>
+                </div>
+                <span>Made with love by Dus Mamud</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="copyright">
+            © 2025 Academic Calendar. All rights reserved.
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="main.js"></script>
+  </body>
+</html>

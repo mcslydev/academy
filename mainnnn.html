@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Luxury Academic Calendar with Class Schedule"
+    />
+    <meta name="author" content="Dus Mamud" />
+    <title>Academic Calendar | Luxury Edition</title>
+
+    <!-- Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&family=Cormorant+Garamond:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Color Variables */
+      :root {
+        /* Light Theme */
+        --primary-bg: #ffffff;
+        --secondary-bg: #f8f9fa;
+        --accent-bg: #e9ecef;
+        --primary-text: #2c3e50;
+        --secondary-text: #495057;
+        --accent-color: #b8860b;
+        --gold: #daa520;
+        --silver: #c0c0c0;
+        --success: #2e7d32;
+        --error: #c62828;
+        --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        --border-color: #e0e0e0;
+
+        /* Animation Duration */
+        --transition-slow: 0.5s;
+        --transition-normal: 0.3s;
+        --transition-fast: 0.2s;
+      }
+
+      /* Dark Theme Variables */
+      [data-theme="dark"] {
+        --primary-bg: #121212;
+        --secondary-bg: #1e1e1e;
+        --accent-bg: #282828;
+        --primary-text: #ffffff;
+        --secondary-text: #e0e0e0;
+        --accent-color: #ffd700;
+        --gold: #ffb300;
+        --silver: #9e9e9e;
+        --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        --border-color: #333333;
+      }
+
+      /* Base Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        background-color: var(--primary-bg);
+        color: var(--primary-text);
+        transition: background-color var(--transition-normal),
+          color var(--transition-normal);
+        min-height: 100vh;
+        line-height: 1.6;
+      }
+
+      /* Main Container */
+      .container {
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      /* Header Styles */
+      .header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background-color: var(--primary-bg);
+        border-bottom: 1px solid var(--border-color);
+        padding: 1rem 0;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+
+      .header__content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .header__title {
+        font-family: "Playfair Display", serif;
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--accent-color);
+        letter-spacing: 1px;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .header__status {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        display: inline-block;
+        position: relative;
+      }
+
+      .header__status.active {
+        background-color: var(--success);
+        box-shadow: 0 0 10px var(--success);
+        animation: pulse 2s infinite;
+      }
+
+      .header__status.inactive {
+        background-color: var(--error);
+        box-shadow: 0 0 10px var(--error);
+      }
+
+      /* Theme Toggle */
+      .theme-toggle {
+        background: none;
+        border: none;
+        color: var(--accent-color);
+        cursor: pointer;
+        font-size: 1.5rem;
+        padding: 0.5rem;
+        transition: transform var(--transition-fast);
+      }
+
+      .theme-toggle:hover {
+        transform: scale(1.1);
+      }
+
+      /* Main Content Grid */
+      .main-grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+
+      @media (max-width: 1200px) {
+        .container {
+          padding: 0 1rem;
+        }
+
+        .main-grid {
+          grid-template-columns: repeat(6, 1fr);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .main-grid {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+
+        .header__title {
+          font-size: 1.5rem;
+        }
+      }
+
+      /* Animations */
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.2);
+          opacity: 0.7;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .animate-fadeIn {
+        animation: fadeIn var(--transition-normal) ease-out forwards;
+      }
+
+      .date-section {
+        grid-column: span 12;
+        background: var(--secondary-bg);
+        border-radius: 15px;
+        padding: 2rem;
+        box-shadow: var(--card-shadow);
+        border: 1px solid var(--border-color);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .date-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 5px;
+        height: 100%;
+        background: var(--accent-color);
+        background: linear-gradient(
+          to bottom,
+          var(--gold),
+          var(--accent-color)
+        );
+      }
+
+      .date-display {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .date-primary {
+        font-family: "Playfair Display", serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--primary-text);
+        letter-spacing: 1px;
+        line-height: 1.2;
+      }
+
+      .date-secondary {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.8rem;
+        color: var(--secondary-text);
+        font-weight: 500;
+      }
+
+      .working-day {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.5rem 1rem;
+        background: var(--accent-bg);
+        border-radius: 8px;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 500;
+        color: var(--accent-color);
+        border: 1px solid var(--border-color);
+      }
+
+      .holiday-badge {
+        background: rgba(198, 40, 40, 0.1);
+        color: var(--error);
+        animation: holidayPulse 2s infinite;
+      }
+
+      @keyframes holidayPulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      /* Schedule Grid */
+      .schedule-grid {
+        grid-column: span 12;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+
+      .schedule-card {
+        background: var(--secondary-bg);
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: var(--card-shadow);
+        border: 1px solid var(--border-color);
+        transition: transform var(--transition-normal),
+          box-shadow var(--transition-normal);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .schedule-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+      }
+
+      .schedule-card::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(to right, var(--gold), var(--accent-color));
+        opacity: 0;
+        transition: opacity var(--transition-normal);
+      }
+
+      .schedule-card:hover::after {
+        opacity: 1;
+      }
+
+      .schedule-time {
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--accent-color);
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .schedule-time i {
+        font-size: 1rem;
+      }
+
+      .schedule-subject {
+        font-family: "Playfair Display", serif;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--primary-text);
+        margin-bottom: 0.5rem;
+      }
+
+      .schedule-details {
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.9rem;
+        color: var(--secondary-text);
+        line-height: 1.6;
+      }
+
+      .schedule-instructor {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border-color);
+      }
+
+      .instructor-avatar {
+        width: 30px;
+        height: 30px;
+        background: var(--accent-bg);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent-color);
+      }
+
+      .current-class {
+        position: relative;
+        animation: highlightClass 1s ease-in-out;
+        border: 2px solid var(--accent-color);
+      }
+
+      @keyframes highlightClass {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.02);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      /* No Classes Display */
+      .no-classes {
+        grid-column: span 12;
+        text-align: center;
+        padding: 3rem;
+        background: var(--secondary-bg);
+        border-radius: 12px;
+        border: 1px solid var(--border-color);
+      }
+
+      .no-classes i {
+        font-size: 3rem;
+        color: var(--accent-color);
+        margin-bottom: 1rem;
+      }
+
+      .no-classes h3 {
+        font-family: "Playfair Display", serif;
+        font-size: 1.8rem;
+        color: var(--primary-text);
+        margin-bottom: 0.5rem;
+      }
+
+      .no-classes p {
+        font-family: "Montserrat", sans-serif;
+        color: var(--secondary-text);
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 1200px) {
+        .date-section {
+          grid-column: span 6;
+        }
+
+        .schedule-grid {
+          grid-column: span 6;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .date-section,
+        .schedule-grid {
+          grid-column: span 12;
+        }
+
+        .date-primary {
+          font-size: 2rem;
+        }
+
+        .date-secondary {
+          font-size: 1.5rem;
+        }
+
+        .schedule-card {
+          margin-bottom: 1rem;
+        }
+      }
+
+      /* Daily Fact Section */
+      .fact-section {
+        grid-column: span 12;
+        background: var(--secondary-bg);
+        border-radius: 15px;
+        padding: 2rem;
+        margin-top: 2rem;
+        box-shadow: var(--card-shadow);
+        border: 1px solid var(--border-color);
+        position: relative;
+      }
+
+      .fact-icon {
+        position: absolute;
+        top: -20px;
+        right: 2rem;
+        width: 40px;
+        height: 40px;
+        background: var(--accent-color);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary-bg);
+        font-size: 1.2rem;
+        box-shadow: 0 4px 15px rgba(184, 134, 11, 0.2);
+      }
+
+      .fact-content {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.2rem;
+        color: var(--secondary-text);
+        line-height: 1.8;
+        margin-top: 1rem;
+        padding-left: 1rem;
+        border-left: 3px solid var(--accent-color);
+      }
+
+      /* Disclaimer Section */
+      .disclaimer {
+        grid-column: span 12;
+        background: rgba(198, 40, 40, 0.05);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-top: 2rem;
+        border: 1px solid rgba(198, 40, 40, 0.1);
+      }
+
+      .disclaimer-title {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--error);
+        font-family: "Montserrat", sans-serif;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .disclaimer-content {
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.9rem;
+        color: var(--secondary-text);
+        line-height: 1.6;
+      }
+
+      /* Footer */
+      .footer {
+        background: var(--secondary-bg);
+        padding: 2rem 0;
+        margin-top: 4rem;
+        border-top: 1px solid var(--border-color);
+      }
+
+      .footer-content {
+        text-align: center;
+      }
+
+      .footer-brand {
+        font-family: "Playfair Display", serif;
+        font-size: 1.2rem;
+        color: var(--accent-color);
+        margin-bottom: 1rem;
+      }
+
+      .footer-version {
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.8rem;
+        color: var(--secondary-text);
+        margin-bottom: 1rem;
+      }
+
+      .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-top: 1rem;
+      }
+
+      .social-link {
+        color: var(--secondary-text);
+        font-size: 1.2rem;
+        transition: all var(--transition-normal);
+      }
+
+      .social-link:hover {
+        color: var(--accent-color);
+        transform: translateY(-3px);
+      }
+
+      /* Gallery Slider Styles */
+      .gallery-section {
+        grid-column: span 12;
+        margin: 4rem 0;
+        padding: 2rem 0;
+        background: var(--secondary-bg);
+        border-top: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .gallery-container {
+        position: relative;
+        max-width: 1200px;
+        margin: 0 auto;
+        overflow: hidden;
+      }
+
+      .gallery-header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .gallery-title {
+        font-family: "Playfair Display", serif;
+        font-size: 2.5rem;
+        color: var(--primary-text);
+        margin-bottom: 1rem;
+      }
+
+      .gallery-subtitle {
+        font-family: "Montserrat", sans-serif;
+        color: var(--secondary-text);
+        font-size: 1.1rem;
+      }
+
+      .gallery-slider {
+        position: relative;
+        height: 400px;
+        margin: 0 auto;
+        border-radius: 15px;
+        overflow: hidden;
+      }
+
+      .gallery-track {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+        height: 100%;
+      }
+
+      .gallery-slide {
+        min-width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .gallery-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      .gallery-slide:hover .gallery-image {
+        transform: scale(1.05);
+      }
+
+      .gallery-content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 2rem;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+        color: #fff;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+      }
+
+      .gallery-slide:hover .gallery-content {
+        transform: translateY(0);
+      }
+
+      .gallery-content h3 {
+        font-family: "Playfair Display", serif;
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .gallery-content p {
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.9rem;
+        opacity: 0.9;
+      }
+
+      .gallery-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 1rem;
+        pointer-events: none;
+      }
+
+      .gallery-button {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.9);
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent-color);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s ease;
+        pointer-events: auto;
+      }
+
+      .gallery-button:hover {
+        background: var(--accent-color);
+        color: #fff;
+        transform: scale(1.1);
+      }
+
+      .gallery-dots {
+        position: absolute;
+        bottom: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .gallery-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        border: 2px solid rgba(255, 255, 255, 0.8);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .gallery-dot.active {
+        background: var(--accent-color);
+        border-color: #fff;
+        transform: scale(1.2);
+      }
+
+      @media (max-width: 768px) {
+        .gallery-slider {
+          height: 300px;
+        }
+
+        .gallery-title {
+          font-size: 2rem;
+        }
+
+        .gallery-button {
+          width: 40px;
+          height: 40px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="header__content">
+          <h1 class="header__title">
+            <i class="fas fa-graduation-cap"></i>
+            Academic Calendar
+            <span class="header__status" id="statusIndicator"></span>
+          </h1>
+          <button
+            class="theme-toggle"
+            id="themeToggle"
+            aria-label="Toggle theme"
+          >
+            <i class="fas fa-moon"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="main-grid">
+        <!-- Content sections will be dynamically inserted here -->
+        <!-- Date Section HTML Structure -->
+        <section class="date-section">
+          <div class="date-display">
+            <div>
+              <h2 class="date-primary" id="currentDate">January 21, 2025</h2>
+              <p class="date-secondary" id="currentDay">Tuesday</p>
+            </div>
+            <div class="working-day" id="workingDayBadge">
+              <i class="fas fa-calendar-day"></i>
+              <span>Working Day 2</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Schedule Grid HTML Structure -->
+        <div class="schedule-grid" id="scheduleGrid">
+          <!-- Example of a schedule card -->
+          <div class="schedule-card">
+            <div class="schedule-time">
+              <i class="far fa-clock"></i>
+              <span>9:00 AM - 10:00 AM</span>
+            </div>
+            <h3 class="schedule-subject">EED (PC)</h3>
+            <p class="schedule-details">Electrical Engineering Design</p>
+            <div class="schedule-instructor">
+              <div class="instructor-avatar">
+                <i class="fas fa-user"></i>
+              </div>
+              <span>Prof. PC</span>
+            </div>
+          </div>
+
+          <!-- Example of No Classes Display -->
+          <div class="no-classes" style="display: none">
+            <i class="fas fa-coffee"></i>
+            <h3>No Classes Today</h3>
+            <p>Enjoy your holiday!</p>
+          </div>
+        </div>
+      </div>
+      <!-- Add this inside your main-grid div -->
+      <div class="fact-section">
+        <div class="fact-icon">
+          <i class="fas fa-lightbulb"></i>
+        </div>
+        <h3 class="fact-title">Daily Electrical Fact</h3>
+        <p class="fact-content"></p>
+      </div>
+
+      <div class="disclaimer">
+        <div class="disclaimer-title">
+          <i class="fas fa-exclamation-circle"></i>
+          <span>Disclaimer</span>
+        </div>
+        <p class="disclaimer-content">
+          This is not an official organization website. The schedule is based on
+          working day calendar and may contain errors. For local holidays and
+          updates, please refer to the official WhatsApp group or attend class
+          regularly.
+        </p>
+      </div>
+      <!-- Gallery HTML Structure -->
+      <section class="gallery-section">
+        <div class="gallery-container">
+          <div class="gallery-header">
+            <h2 class="gallery-title">Academic Moments</h2>
+            <p class="gallery-subtitle">Capturing excellence in education</p>
+          </div>
+
+          <div class="gallery-slider" id="gallerySlider">
+            <div class="gallery-track" id="galleryTrack">
+              <!-- Slides will be inserted here by JavaScript -->
+            </div>
+
+            <div class="gallery-nav">
+              <button class="gallery-button prev" aria-label="Previous slide">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <button class="gallery-button next" aria-label="Next slide">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+
+            <div class="gallery-dots" id="galleryDots">
+              <!-- Dots will be inserted here by JavaScript -->
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-brand">
+          Made with <i class="fas fa-heart"></i> by Dus Mamud
+        </div>
+        <div class="footer-version">version 2.0.1</div>
+        <div class="social-links">
+          <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-codepen"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts will be added here -->
+    <script>
+      // Class Schedule Data
+      const CLASS_SCHEDULES = {
+        1: [
+          {
+            time: "9:00 AM — 12:00 Noon",
+            subject: "EMMI-1 LAB (Gr1)(PS,LK) /LIB (grp 2)",
+            instructor: "Staff",
+            room: "Lab 101",
+          },
+          {
+            time: "12:45 PM — 1:45 PM",
+            subject: "EM-I",
+            instructor: "P.S",
+            room: "Room 201",
+          },
+        ],
+        2: [
+          {
+            time: "9:00 AM — 12:00 Noon",
+            subject: "EEDD",
+            instructor: "P.C",
+            room: "Room 301",
+          },
+          {
+            time: "12:45 PM — 1:45 PM",
+            subject: "EEM",
+            instructor: "P.S",
+            room: "Room 202",
+          },
+        ],
+        3: [
+          {
+            time: "9:00 AM — 10:00 AM",
+            subject: "Mathematics III",
+            instructor: "J.B",
+            room: "Room 401",
+          },
+          {
+            time: "10:00 AM — 1:45 PM",
+            subject: "PE LAB",
+            instructor: "K.D",
+            room: "Lab 102",
+          },
+        ],
+        4: [
+          {
+            time: "9:00 AM — 12:00 Noon",
+            subject: "Circuit Analysis",
+            instructor: "S.D",
+            room: "Room 301",
+          },
+          {
+            time: "12:45 PM — 3:45 PM",
+            subject: "EME LAB",
+            instructor: "P.C",
+            room: "Lab 103",
+          },
+        ],
+        5: [
+          {
+            time: "9:00 AM — 1:45 PM",
+            subject: "Project Work",
+            instructor: "Multiple Staff",
+            room: "Project Lab",
+          },
+        ],
+      };
+
+      // Calendar Data
+      const CALENDAR_DATA = [
+        {
+          date: "2025-01-20",
+          day: "Monday",
+          workingDay: "1",
+          status: "Working",
+          remarks: "",
+        },
+        {
+          date: "2025-01-21",
+          day: "Tuesday",
+          workingDay: "2",
+          status: "Working",
+          remarks: "",
+        },
+        {
+          date: "2025-01-22",
+          day: "Wednesday",
+          workingDay: "3",
+          status: "Working",
+          remarks: "",
+        },
+        {
+          date: "2025-01-23",
+          day: "Thursday",
+          workingDay: "-",
+          status: "Holiday",
+          remarks: "Netaji Birthday",
+        },
+        {
+          date: "2025-01-24",
+          day: "Friday",
+          workingDay: "-",
+          status: "Holiday",
+          remarks: "My bb",
+        },
+        {
+          date: "2025-01-25",
+          day: "Saturday",
+          workingDay: "-",
+          status: "Holiday",
+          remarks: "4th Saturday",
+        },
+        {
+          date: "2025-01-26",
+          day: "Sunday",
+          workingDay: "-",
+          status: "Holiday",
+          remarks: "Republic Day",
+        },
+      ];
+
+      // Electrical Facts Array
+      const ELECTRICAL_FACTS = [
+        "The first practical electrical telegraph was invented by Samuel Morse in 1837.",
+        "Electricity travels at the speed of light, which is 186,000 miles per second.",
+        "The electric chair was invented by a dentist named Alfred Southwick.",
+        "The first power plant in the world was built in 1882 by Thomas Edison.",
+        "Benjamin Franklin did not discover electricity, but he proved that lightning is electricity.",
+        "The average lightning bolt contains enough energy to light a 100-watt bulb for more than 3 months.",
+        "Electricity always tries to find the easiest path to the ground.",
+        "Birds can sit on electrical wires because they're not grounded.",
+        "The first electric motor was invented by Michael Faraday in 1821.",
+        "The human body is a good conductor of electricity due to its high water content.",
+      ];
+
+      // Main functionality
+      class AcademicCalendar {
+        constructor() {
+          this.init();
+        }
+
+        init() {
+          this.initTheme();
+          this.updateDateTime();
+          this.updateSchedule();
+          this.updateFact();
+          this.setupEventListeners();
+        }
+
+        initTheme() {
+          const prefersDark = window.matchMedia(
+            "(prefers-color-scheme: dark)"
+          ).matches;
+          document.body.setAttribute(
+            "data-theme",
+            prefersDark ? "dark" : "light"
+          );
+        }
+
+        updateDateTime() {
+          const now = new Date();
+          const currentDate = now.toISOString().split("T")[0];
+
+          // Find current day in calendar data
+          const todayData = CALENDAR_DATA.find(
+            (item) => item.date === currentDate
+          ) || {
+            day: now.toLocaleDateString("en-US", { weekday: "long" }),
+            workingDay: "-",
+            status: "Working",
+            remarks: "",
+          };
+
+          // Update DOM
+          document.getElementById("currentDate").textContent =
+            now.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            });
+          document.getElementById("currentDay").textContent = todayData.day;
+
+          // Update working day badge
+          const badge = document.getElementById("workingDayBadge");
+          if (todayData.status === "Holiday") {
+            badge.classList.add("holiday-badge");
+            badge.innerHTML = `
+                  <i class="fas fa-calendar-times"></i>
+                  <span>${todayData.remarks || "Holiday"}</span>
+              `;
+          } else {
+            badge.classList.remove("holiday-badge");
+            badge.innerHTML = `
+                  <i class="fas fa-calendar-day"></i>
+                  <span>Working Day ${todayData.workingDay}</span>
+              `;
+          }
+
+          // Update status indicator
+          this.updateStatusIndicator();
+        }
+
+        updateStatusIndicator() {
+          const now = new Date();
+          const hours = now.getHours();
+          const minutes = now.getMinutes();
+          const currentTime = hours * 60 + minutes;
+
+          const indicator = document.getElementById("statusIndicator");
+          const isWorkingHours = currentTime >= 540 && currentTime <= 945; // 9:00 AM to 3:45 PM
+
+          indicator.classList.toggle("active", isWorkingHours);
+          indicator.classList.toggle("inactive", !isWorkingHours);
+        }
+
+        updateSchedule() {
+          const now = new Date();
+          const currentDate = now.toISOString().split("T")[0];
+          const todayData = CALENDAR_DATA.find(
+            (item) => item.date === currentDate
+          );
+
+          const scheduleGrid = document.getElementById("scheduleGrid");
+
+          if (!todayData || todayData.status === "Holiday") {
+            scheduleGrid.innerHTML = this.generateNoClassesHTML(
+              todayData?.remarks
+            );
+            return;
+          }
+
+          const schedules = CLASS_SCHEDULES[todayData.workingDay] || [];
+          scheduleGrid.innerHTML = schedules
+            .map((schedule) => this.generateScheduleCardHTML(schedule))
+            .join("");
+        }
+
+        generateScheduleCardHTML(schedule) {
+          return `
+              <div class="schedule-card">
+                  <div class="schedule-time">
+                      <i class="far fa-clock"></i>
+                      <span>${schedule.time}</span>
+                  </div>
+                  <h3 class="schedule-subject">${schedule.subject}</h3>
+                  <p class="schedule-details">${schedule.room}</p>
+                  <div class="schedule-instructor">
+                      <div class="instructor-avatar">
+                          <i class="fas fa-user"></i>
+                      </div>
+                      <span>${schedule.instructor}</span>
+                  </div>
+              </div>
+          `;
+        }
+
+        generateNoClassesHTML(reason) {
+          return `
+              <div class="no-classes">
+                  <i class="fas fa-coffee"></i>
+                  <h3>No Classes Today</h3>
+                  <p>${reason || "Enjoy your holiday!"}</p>
+              </div>
+          `;
+        }
+
+        updateFact() {
+          const factElement = document.querySelector(".fact-content");
+          const randomFact =
+            ELECTRICAL_FACTS[
+              Math.floor(Math.random() * ELECTRICAL_FACTS.length)
+            ];
+          factElement.textContent = randomFact;
+        }
+
+        setupEventListeners() {
+          // Theme toggle
+          document
+            .getElementById("themeToggle")
+            .addEventListener("click", () => {
+              const currentTheme = document.body.getAttribute("data-theme");
+              const newTheme = currentTheme === "dark" ? "light" : "dark";
+              document.body.setAttribute("data-theme", newTheme);
+            });
+
+          // Update every minute
+          setInterval(() => {
+            this.updateDateTime();
+            this.updateStatusIndicator();
+          }, 60000);
+
+          // Update fact at midnight
+          setInterval(() => {
+            const now = new Date();
+            if (now.getHours() === 0 && now.getMinutes() === 0) {
+              this.updateFact();
+            }
+          }, 60000);
+        }
+      }
+
+      // Initialize the calendar when the DOM is loaded
+      document.addEventListener("DOMContentLoaded", () => {
+        new AcademicCalendar();
+      });
+
+      class GallerySlider {
+        constructor() {
+          this.currentSlide = 0;
+          this.slides = [
+            {
+              image:
+                "https://storage.googleapis.com/a1aa/image/0dd95d03-1da6-4ec6-9c0e-8210b8f6ab01.jpeg",
+              title: "Campus Life",
+              description: "Exploring the vibrant academic atmosphere",
+            },
+            {
+              image:
+                "https://storage.googleapis.com/a1aa/image/cf6319ed-bb8f-479a-a7a4-cbfe39a0563c.jpeg",
+              title: "Research Excellence",
+              description: "Advancing knowledge through innovation",
+            },
+            {
+              image: "https://source.unsplash.com/1600x900/?library,study",
+              title: "Learning Spaces",
+              description: "Modern facilities for modern education",
+            },
+            {
+              image:
+                "https://source.unsplash.com/1600x900/?graduation,ceremony",
+              title: "Academic Success",
+              description: "Celebrating achievements and milestones",
+            },
+          ];
+
+          this.track = document.getElementById("galleryTrack");
+          this.dotsContainer = document.getElementById("galleryDots");
+          this.init();
+        }
+
+        init() {
+          // Create slides
+          this.createSlides();
+
+          // Create dots
+          this.createDots();
+
+          // Add event listeners
+          document
+            .querySelector(".gallery-button.prev")
+            .addEventListener("click", () => this.prevSlide());
+          document
+            .querySelector(".gallery-button.next")
+            .addEventListener("click", () => this.nextSlide());
+
+          // Auto advance slides
+          this.startAutoAdvance();
+
+          // Pause auto-advance on hover
+          const slider = document.getElementById("gallerySlider");
+          slider.addEventListener("mouseenter", () => this.pauseAutoAdvance());
+          slider.addEventListener("mouseleave", () => this.startAutoAdvance());
+        }
+
+        createSlides() {
+          this.slides.forEach((slide, index) => {
+            const slideElement = document.createElement("div");
+            slideElement.className = "gallery-slide";
+            slideElement.innerHTML = `
+                  <img src="${slide.image}" alt="${slide.title}" class="gallery-image">
+                  <div class="gallery-content">
+                      <h3>${slide.title}</h3>
+                      <p>${slide.description}</p>
+                  </div>
+              `;
+            this.track.appendChild(slideElement);
+          });
+        }
+
+        createDots() {
+          this.slides.forEach((_, index) => {
+            const dot = document.createElement("div");
+            dot.className = `gallery-dot${index === 0 ? " active" : ""}`;
+            dot.addEventListener("click", () => this.goToSlide(index));
+            this.dotsContainer.appendChild(dot);
+          });
+        }
+
+        updateDots() {
+          const dots = this.dotsContainer.children;
+          Array.from(dots).forEach((dot, index) => {
+            dot.className = `gallery-dot${
+              index === this.currentSlide ? " active" : ""
+            }`;
+          });
+        }
+
+        goToSlide(index) {
+          this.currentSlide = index;
+          this.track.style.transform = `translateX(-${index * 100}%)`;
+          this.updateDots();
+        }
+
+        nextSlide() {
+          this.currentSlide = (this.currentSlide + 1) % this.slides.length;
+          this.goToSlide(this.currentSlide);
+        }
+
+        prevSlide() {
+          this.currentSlide =
+            (this.currentSlide - 1 + this.slides.length) % this.slides.length;
+          this.goToSlide(this.currentSlide);
+        }
+
+        startAutoAdvance() {
+          this.autoAdvance = setInterval(() => this.nextSlide(), 5000);
+        }
+
+        pauseAutoAdvance() {
+          clearInterval(this.autoAdvance);
+        }
+      }
+
+      // Initialize Gallery Slider
+      document.addEventListener("DOMContentLoaded", () => {
+        new GallerySlider();
+      });
+    </script>
+  </body>
+</html>

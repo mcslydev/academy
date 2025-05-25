@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      
+      /* Daily Fact Section Styles */
+      .fact-section {
+        grid-column: span 12;
+        background: var(--secondary-bg);
+        border-radius: 15px;
+        padding: 2rem;
+        margin-top: 2rem;
+        position: relative;
+        overflow: hidden;
+        box-shadow: var(--card-shadow);
+        border: 1px solid var(--border-color);
+      }
+
+      .fact-container {
+        position: relative;
+        z-index: 1;
+      }
+
+      .fact-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .fact-icon {
+        width: 48px;
+        height: 48px;
+        background: var(--accent-bg);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent-color);
+        font-size: 1.5rem;
+        transform: rotate(-10deg);
+        transition: transform var(--transition-normal);
+      }
+
+      .fact-icon:hover {
+        transform: rotate(0deg) scale(1.1);
+      }
+
+      .fact-title {
+        font-family: "Playfair Display", serif;
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary-text);
+        margin: 0;
+      }
+
+      .fact-content {
+        position: relative;
+        padding: 1.5rem;
+        background: var(--accent-bg);
+        border-radius: 12px;
+        border: 1px solid var(--border-color);
+      }
+
+      .fact-text {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.25rem;
+        line-height: 1.6;
+        color: var(--primary-text);
+        margin: 0;
+        position: relative;
+        z-index: 1;
+      }
+
+      .fact-quote {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-size: 4rem;
+        color: var(--accent-color);
+        opacity: 0.1;
+      }
+
+      .fact-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border-color);
+      }
+
+      .fact-category {
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.9rem;
+        color: var(--accent-color);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .fact-refresh {
+        background: none;
+        border: none;
+        color: var(--accent-color);
+        cursor: pointer;
+        font-size: 1.2rem;
+        padding: 0.5rem;
+        transition: transform var(--transition-normal);
+      }
+
+      .fact-refresh:hover {
+        transform: rotate(180deg);
+      }
+
+      /* Disclaimer Section Styles */
+      .disclaimer-section {
+        grid-column: span 12;
+        margin-top: 2rem;
+        position: relative;
+      }
+
+      .disclaimer-container {
+        background: var(--accent-bg);
+        border-radius: 15px;
+        padding: 2rem;
+        border: 1px solid var(--border-color);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .disclaimer-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .disclaimer-icon {
+        width: 40px;
+        height: 40px;
+        background: rgba(198, 40, 40, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--error);
+      }
+
+      .disclaimer-title {
+        font-family: "Playfair Display", serif;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--primary-text);
+        margin: 0;
+      }
+
+      .disclaimer-content {
+        font-family: "Montserrat", sans-serif;
+        font-size: 1rem;
+        line-height: 1.8;
+        color: var(--secondary-text);
+      }
+
+      .disclaimer-points {
+        list-style: none;
+        padding: 0;
+        margin: 1rem 0;
+      }
+
+      .disclaimer-points li {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .disclaimer-points li i {
+        color: var(--accent-color);
+        margin-top: 0.3rem;
+      }
+
+      .disclaimer-footer {
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border-color);
+        font-size: 0.9rem;
+        color: var(--secondary-text);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      /* Animation Classes */
+      .fade-in {
+        animation: fadeIn 0.5s ease-out forwards;
+      }
+
+      .slide-in {
+        animation: slideIn 0.5s ease-out forwards;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateX(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 768px) {
+        .fact-section,
+        .disclaimer-section {
+          grid-column: span 12;
+          margin-top: 1rem;
+        }
+
+        .fact-title {
+          font-size: 1.5rem;
+        }
+
+        .fact-text {
+          font-size: 1.1rem;
+        }
+
+        .disclaimer-container {
+          padding: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Daily Fact Section HTML -->
+    <section class="fact-section">
+      <div class="fact-container">
+        <div class="fact-header">
+          <div class="fact-icon">
+            <i class="fas fa-lightbulb"></i>
+          </div>
+          <h2 class="fact-title">Daily Electrical Fact</h2>
+        </div>
+        <div class="fact-content">
+          <i class="fas fa-quote-right fact-quote"></i>
+          <p class="fact-text" id="dailyFact">
+            The first electric motor was invented by Michael Faraday in 1821.
+            This groundbreaking invention laid the foundation for modern
+            electrical engineering.
+          </p>
+        </div>
+        <div class="fact-footer">
+          <span class="fact-category">
+            <i class="fas fa-tag"></i>
+            Electrical Engineering
+          </span>
+          <button
+            class="fact-refresh"
+            id="refreshFact"
+            aria-label="Refresh fact"
+          >
+            <i class="fas fa-sync-alt"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+    <!-- Disclaimer Section HTML -->
+    <section class="disclaimer-section">
+      <div class="disclaimer-container">
+        <div class="disclaimer-header">
+          <div class="disclaimer-icon">
+            <i class="fas fa-exclamation-triangle"></i>
+          </div>
+          <h2 class="disclaimer-title">Important Notice</h2>
+        </div>
+        <div class="disclaimer-content">
+          <ul class="disclaimer-points">
+            <li>
+              <i class="fas fa-info-circle"></i>
+              <span
+                >This is not an official organization website. The schedule is
+                based on working day calendar and may contain errors.</span
+              >
+            </li>
+            <li>
+              <i class="fas fa-calendar-check"></i>
+              <span
+                >For local holidays and schedule updates, please refer to the
+                official WhatsApp group.</span
+              >
+            </li>
+            <li>
+              <i class="fas fa-user-graduate"></i>
+              <span
+                >Regular class attendance is recommended for accurate schedule
+                information.</span
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="disclaimer-footer">
+          <i class="fas fa-clock"></i>
+          <span
+            >Last updated: <time id="lastUpdated">January 21, 2025</time></span
+          >
+        </div>
+      </div>
+    </section>
+    <script>
+      // Constants and Configurations
+      const CONFIG = {
+        workingTime: {
+          start: 9, // 9 AM
+          end: 15.75, // 3:45 PM
+        },
+        refreshInterval: 60000, // 1 minute
+        facts: [
+          "The first electric motor was invented by Michael Faraday in 1821.",
+          "Lightning strikes the Earth about 100 times every second.",
+          "Electricity travels at the speed of light, which is 186,000 miles per second.",
+          "The first power plant opened in 1882 and was built by Thomas Edison.",
+          "The average bolt of lightning contains enough energy to power a house for a month.",
+        ],
+      };
+
+      // Fact Manager
+      class FactManager {
+        constructor() {
+          this.factText = document.getElementById("dailyFact");
+          this.refreshButton = document.getElementById("refreshFact");
+          this.init();
+        }
+
+        init() {
+          this.refreshButton.addEventListener("click", () => this.updateFact());
+          this.updateFact();
+        }
+
+        updateFact() {
+          const randomFact =
+            CONFIG.facts[Math.floor(Math.random() * CONFIG.facts.length)];
+          this.factText.textContent = randomFact;
+        }
+      }
+
+      // Initialize Application
+      document.addEventListener("DOMContentLoaded", () => {
+        new FactManager();
+      });
+    </script>
+  </body>
+</html>

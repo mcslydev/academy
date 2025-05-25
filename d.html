@@ -1,0 +1,401 @@
+<style>
+  /* Footer Styles */
+  .footer {
+      background: var(--secondary-bg);
+      border-top: 1px solid var(--border-color);
+      padding: 3rem 0;
+      margin-top: 4rem;
+  }
+  
+  .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 2rem;
+  }
+  
+  .footer-brand {
+      grid-column: span 4;
+  }
+  
+  .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+  }
+  
+  .footer-description {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--secondary-text);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+  }
+  
+  .footer-social {
+      display: flex;
+      gap: 1rem;
+  }
+  
+  .social-link {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--accent-bg);
+      color: var(--accent-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: all var(--transition-normal);
+      border: 1px solid var(--border-color);
+  }
+  
+  .social-link:hover {
+      transform: translateY(-3px);
+      background: var(--accent-color);
+      color: var(--primary-bg);
+  }
+  
+  .footer-links {
+      grid-column: span 4;
+  }
+  
+  .footer-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--primary-text);
+      margin-bottom: 1.5rem;
+  }
+  
+  .footer-nav {
+      list-style: none;
+      padding: 0;
+  }
+  
+  .footer-nav li {
+      margin-bottom: 0.8rem;
+  }
+  
+  .footer-nav a {
+      color: var(--secondary-text);
+      text-decoration: none;
+      transition: color var(--transition-normal);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+  }
+  
+  .footer-nav a:hover {
+      color: var(--accent-color);
+  }
+  
+  .footer-version {
+      grid-column: span 4;
+  }
+  
+  .version-info {
+      background: var(--accent-bg);
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+  }
+  
+  .version-number {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      color: var(--accent-color);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+  }
+  
+  .developer-info {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-color);
+  }
+  
+  .developer-avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--accent-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-bg);
+  }
+  
+  .copyright {
+      grid-column: span 12;
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-color);
+      color: var(--secondary-text);
+      font-size: 0.9rem;
+  }
+  
+  @media (max-width: 1200px) {
+      .footer-brand,
+      .footer-links,
+      .footer-version {
+          grid-column: span 6;
+      }
+  }
+  
+  @media (max-width: 768px) {
+      .footer-brand,
+      .footer-links,
+      .footer-version {
+          grid-column: span 12;
+      }
+  }
+  </style>
+  
+  <!-- Footer HTML Structure -->
+  <footer class="footer">
+      <div class="container">
+          <div class="footer-grid">
+              <div class="footer-brand">
+                  <div class="footer-logo">
+                      <i class="fas fa-graduation-cap"></i>
+                      Academic Calendar
+                  </div>
+                  <p class="footer-description">
+                      Elegantly designed academic schedule management system for modern educational needs.
+                  </p>
+                  <div class="footer-social">
+                      <a href="#" class="social-link" aria-label="GitHub">
+                          <i class="fab fa-github"></i>
+                      </a>
+                      <a href="#" class="social-link" aria-label="CodePen">
+                          <i class="fab fa-codepen"></i>
+                      </a>
+                      <a href="#" class="social-link" aria-label="Instagram">
+                          <i class="fab fa-instagram"></i>
+                      </a>
+                  </div>
+              </div>
+  
+              <div class="footer-links">
+                  <h3 class="footer-title">Quick Links</h3>
+                  <ul class="footer-nav">
+                      <li>
+                          <a href="#"><i class="fas fa-calendar-alt"></i> Full Schedule</a>
+                      </li>
+                      <li>
+                          <a href="#"><i class="fas fa-book"></i> Courses</a>
+                      </li>
+                      <li>
+                          <a href="#"><i class="fas fa-user-tie"></i> Faculty</a>
+                      </li>
+                      <li>
+                          <a href="#"><i class="fas fa-bell"></i> Notifications</a>
+                      </li>
+                  </ul>
+              </div>
+  
+              <div class="footer-version">
+                  <h3 class="footer-title">Version Info</h3>
+                  <div class="version-info">
+                      <div class="version-number">
+                          <i class="fas fa-code-branch"></i>
+                          Version 2.0.1
+                      </div>
+                      <div class="developer-info">
+                          <div class="developer-avatar">
+                              <i class="fas fa-heart"></i>
+                          </div>
+                          <span>Made with love by Dus Mamud</span>
+                      </div>
+                  </div>
+              </div>
+  
+              <div class="copyright">
+                  © 2025 Academic Calendar. All rights reserved.
+              </div>
+          </div>
+      </div>
+  </footer>
+  
+  <!-- JavaScript Implementation -->
+  <script>
+  
+  
+  // Class Schedules
+  const CLASS_SCHEDULES = {
+      1: [
+          { time: "9:00-10:00", subject: "Remedial class", instructor: "Staff" },
+          { time: "10:00-11:00", subject: "Math-III", instructor: "JB" },
+          { time: "11:00-13:00", subject: "PEE", instructor: "PS" },
+          { time: "13:45-15:45", subject: "PEE LAB (GP-1)", instructor: "PS, SI" }
+      ],
+      2: [
+          { time: "9:00-10:00", subject: "EED", instructor: "PC" },
+          { time: "10:00-12:00", subject: "CAP", instructor: "KD" },
+          { time: "12:00-13:00", subject: "Library", instructor: "Staff" },
+          { time: "13:45-15:45", subject: "EME LAB", instructor: "SDN" }
+      ]
+      // Add more schedules as needed
+  };
+  
+  // Theme Management
+  class ThemeManager {
+      constructor() {
+          this.themeToggle = document.getElementById('themeToggle');
+          this.init();
+      }
+  
+      init() {
+          this.themeToggle.addEventListener('click', () => this.toggleTheme());
+          this.setInitialTheme();
+      }
+  
+      setInitialTheme() {
+          const savedTheme = localStorage.getItem('theme') || 'light';
+          document.documentElement.setAttribute('data-theme', savedTheme);
+          this.updateToggleIcon(savedTheme);
+      }
+  
+      toggleTheme() {
+          const currentTheme = document.documentElement.getAttribute('data-theme');
+          const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+          
+          document.documentElement.setAttribute('data-theme', newTheme);
+          localStorage.setItem('theme', newTheme);
+          this.updateToggleIcon(newTheme);
+      }
+  
+      updateToggleIcon(theme) {
+          const icon = this.themeToggle.querySelector('i');
+          icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+      }
+  }
+  
+  // Calendar Manager
+  class CalendarManager {
+      constructor() {
+          this.dateSection = document.getElementById('currentDate');
+          this.daySection = document.getElementById('currentDay');
+          this.workingDayBadge = document.getElementById('workingDayBadge');
+          this.scheduleGrid = document.getElementById('scheduleGrid');
+          this.statusIndicator = document.getElementById('statusIndicator');
+          
+          this.init();
+      }
+  
+      init() {
+          this.updateDateTime();
+          setInterval(() => this.updateDateTime(), CONFIG.refreshInterval);
+      }
+  
+      updateDateTime() {
+          const now = new Date();
+          this.updateDateDisplay(now);
+          this.updateWorkingDayStatus(now);
+          this.updateScheduleDisplay(now);
+          this.updateStatusIndicator(now);
+      }
+  
+      updateDateDisplay(date) {
+          this.dateSection.textContent = date.toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+          });
+          this.daySection.textContent = date.toLocaleDateString('en-US', {
+              weekday: 'long'
+          });
+      }
+  
+      updateWorkingDayStatus(date) {
+          const dateStr = date.toISOString().split('T')[0];
+          const isHoliday = CONFIG.holidays[dateStr] || date.getDay() === 0;
+          
+          if (isHoliday) {
+              this.workingDayBadge.className = 'working-day holiday-badge';
+              this.workingDayBadge.innerHTML = `
+                  <i class="fas fa-calendar-times"></i>
+                  <span>${CONFIG.holidays[dateStr] || 'Holiday'}</span>
+              `;
+          } else {
+              const workingDay = this.getWorkingDay(date);
+              this.workingDayBadge.className = 'working-day';
+              this.workingDayBadge.innerHTML = `
+                  <i class="fas fa-calendar-day"></i>
+                  <span>Working Day ${workingDay}</span>
+              `;
+          }
+      }
+  
+      getWorkingDay(date) {
+          // Implement your working day calculation logic here
+          return 2; // Example return
+      }
+  
+      updateStatusIndicator(date) {
+          const hours = date.getHours() + date.getMinutes() / 60;
+          const isWorkingHours = hours >= CONFIG.workingHours.start && 
+                               hours <= CONFIG.workingHours.end;
+          
+          this.statusIndicator.className = `header__status ${isWorkingHours ? 'active' : 'inactive'}`;
+      }
+  
+      updateScheduleDisplay(date) {
+          const workingDay = this.getWorkingDay(date);
+          const schedule = CLASS_SCHEDULES[workingDay];
+          
+          if (!schedule) {
+              this.showNoClasses();
+              return;
+          }
+  
+          this.renderSchedule(schedule, date);
+      }
+  
+      renderSchedule(schedule, currentDate) {
+          this.scheduleGrid.innerHTML = schedule.map(slot => this.createScheduleCard(slot, currentDate)).join('');
+      }
+  
+      createScheduleCard(slot, currentDate) {
+          // Implementation of schedule card creation
+          return `
+              <div class="schedule-card">
+                  <div class="schedule-time">
+                      <i class="far fa-clock"></i>
+                      <span>${slot.time}</span>
+                  </div>
+                  <h3 class="schedule-subject">${slot.subject}</h3>
+                  <div class="schedule-instructor">
+                      <div class="instructor-avatar">
+                          <i class="fas fa-user"></i>
+                      </div>
+                      <span>${slot.instructor}</span>
+                  </div>
+              </div>
+          `;
+      }
+  
+      showNoClasses() {
+          this.scheduleGrid.innerHTML = `
+              <div class="no-classes">
+                  <i class="fas fa-coffee"></i>
+                  <h3>No Classes Today</h3>
+                  <p>Enjoy your holiday!</p>
+              </div>
+          `;
+      }
+  }
+  
+ 
+  </script>
